@@ -1,0 +1,35 @@
+{% extends "layouts/base_html.twig" %}
+
+{% block CONTENT %}
+	<section class="index-login">
+		<div class="wrapper">
+			<div class="index-login-login">
+				<h4>
+					LOGIN
+				</h4>
+				<p>
+					{% block LOGIN %}
+						Have an account already? Sign in here!
+					{% endblock LOGIN %}
+				</p>
+				<form action="includes/login.inc.php" method="post">
+					<input type="text" name="uid" placeholder="Username">
+					<input type="password" name="pwd" placeholder="Password">
+					<br>
+					<button type="submit" name="submit">
+						LOGIN
+					</button>
+				</form>
+			</div>
+
+			<h5>
+				Don't have an account?
+			</h5>
+			<li>
+				<a href="signup">
+					Sign up here
+					<a></li>
+				</div>
+			</li>
+		</section>
+	{% endblock CONTENT %}
