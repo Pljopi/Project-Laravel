@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\CustomAuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -9,31 +10,24 @@ use Illuminate\Support\Facades\Route;
 |
 | Here is where you can register web routes for your application. These
 | routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
+| contains the "web" middleware group. Now register-user something great!
 |
 */
 
-Route::get('/', function () {
-    return view('layouts/base_html');
-});
 
-Route::get('/home', function () {
-    return view('layouts/base_html');
-});
+Route::view('/home', 'layouts/base_html');
 
-Route::get('/login', function () {
-    return view('layouts/base_html');
-});
+Route::get('/login', [CustomAuthController::class, 'login']);
 
-Route::get('/favourites', function () {
-    return view('pages/favourites_html');
-});
-Route::get('/list', function () {
-    return view('pages/list_html');
-});
-route::get('/login', function () {
-    return view('pages/login_html');
-});
-route::get('/signup', function () {
-    return view('pages/signup_html');
-});
+Route::get('/signup', [CustomAuthController::class, 'registration']);
+
+Route::post('/register-user', [CustomAuthController::class, 'registerUser'])->name('register-user');
+
+Route::view('/favourites', 'pages/favourites_html');
+
+Route::view('/list', 'pages/list_html');
+
+Route::view('/show_list', 'pages/show__list_html');
+
+
+
