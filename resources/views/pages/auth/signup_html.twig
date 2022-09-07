@@ -8,20 +8,20 @@
 				<p>Don't have an account yet? Sign up here!</p>
 				<form action="{{ route ('register-user') }}" method="post">
 
-					{{ csrf_field () }}
+
 					{% if session ('success') %}
 						<div class="alert alert-sucess">{{ session ('success') }}</div>
 					{% endif %}
 					{% if session ('fail') %}
 						<div class="alert alert-sucess">{{ session ('fail') }}</div>
 					{% endif %}
-
+					{{ csrf_field () }}
 					<div class="form-group">
 
 						<input type="text" class="form-control" name="username" value="{{ old ('name') }}" placeholder="Username">
-						{% if errors.any() %}
+						{% if errors.first('username') %}
 							<div class="alert alert-danger">
-								<ul>{{ errors.all()[0] }}</ul>
+								<ul>{{ errors.first('username')}}</ul>
 							</div>
 						{% endif %}
 					</div>
@@ -30,9 +30,9 @@
 					<div class="form-group">
 
 						<input type="password" class="form-control" name="password" placeholder="Password">
-						{% if errors.any() %}
+						{% if errors.first('password')%}
 							<div class="alert alert-danger">
-								<ul>{{ errors.all()[1] }}</ul>
+								<ul>{{ errors.first('password') }}</ul>
 							</div>
 						{% endif %}
 					</div>
@@ -40,10 +40,10 @@
 
 					<div class="form-group">
 
-						<input type="password" class="form-control" name="passwordrepeat" placeholder="Repeat Password">
-						{% if errors.any() %}
+						<input type="password" class="form-control" name="password_confirmation" placeholder="Repeat Password">
+						{% if errors.first('password_confirmation') %}
 							<div class="alert alert-danger">
-								<ul>{{ errors.all()[2] }}</ul>
+								<ul>{{ errors.first('password_confirmation') }}</ul>
 							</div>
 						{% endif %}
 					</div>
@@ -52,9 +52,9 @@
 					<div class="form-group">
 
 						<input type="text" class="form-control" name="email" value="{{ old ('email') }}" placeholder="E-mail">
-						{% if errors.any() %}
+						{% if errors.first('email')%}
 							<div class="alert alert-danger">
-								<ul>{{ errors.all()[3] }}</ul>
+								<ul>{{ errors.first('email') }}</ul>
 							</div>
 						{% endif %}
 					</div>

@@ -21,12 +21,11 @@ class CustomAuthController extends Controller
      
     $request->validate([
            
-        'username' => 'required',
-        'password' => 'required',
-        'passwordrepeat' => 'required',
-        'email' => 'required',
+        'username' => 'required | unique:users,uid',
+        'password' => 'required | min:5 | max:12',
+        'password_confirmation' => 'required | same:password',
+        'email' => 'required | unique:users,email',
         
-     
       ]);
 
     $user = new Users();
