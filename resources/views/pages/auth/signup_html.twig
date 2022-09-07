@@ -7,6 +7,7 @@
 				<h4>SIGN UP</h4>
 				<p>Don't have an account yet? Sign up here!</p>
 				<form action="{{ route ('register-user') }}" method="post">
+
 					{{ csrf_field () }}
 					{% if session ('success') %}
 						<div class="alert alert-sucess">{{ session ('success') }}</div>
@@ -15,14 +16,55 @@
 						<div class="alert alert-sucess">{{ session ('fail') }}</div>
 					{% endif %}
 
-					<input type="text" name="uid" value="{{ old ('name') }}" placeholder="Username">
-					<input type="password" name="pwd" placeholder="Password">
-					<input type="password" name="pwdrepeat" placeholder="Repeat Password">
-					<input type="text" name="email" value="{{ old ('email') }}" placeholder="E-mail">
+					<div class="form-group">
+
+						<input type="text" class="form-control" name="username" value="{{ old ('name') }}" placeholder="Username">
+						{% if errors.any() %}
+							<div class="alert alert-danger">
+								<ul>{{ errors.all()[0] }}</ul>
+							</div>
+						{% endif %}
+					</div>
+
+
+					<div class="form-group">
+
+						<input type="password" class="form-control" name="password" placeholder="Password">
+						{% if errors.any() %}
+							<div class="alert alert-danger">
+								<ul>{{ errors.all()[1] }}</ul>
+							</div>
+						{% endif %}
+					</div>
+
+
+					<div class="form-group">
+
+						<input type="password" class="form-control" name="passwordrepeat" placeholder="Repeat Password">
+						{% if errors.any() %}
+							<div class="alert alert-danger">
+								<ul>{{ errors.all()[2] }}</ul>
+							</div>
+						{% endif %}
+					</div>
+
+
+					<div class="form-group">
+
+						<input type="text" class="form-control" name="email" value="{{ old ('email') }}" placeholder="E-mail">
+						{% if errors.any() %}
+							<div class="alert alert-danger">
+								<ul>{{ errors.all()[3] }}</ul>
+							</div>
+						{% endif %}
+					</div>
+
+
 					<br>
-					<button type="submit" name="submit">SIGN UP</button>
-				</form>
-			</div>
+					<button class="btn btn-block btn-primary" type="submit" name="submit">SIGN UP</button>
+				</div>
+			</form>
 		</div>
+
 	</section>
 {% endblock %}

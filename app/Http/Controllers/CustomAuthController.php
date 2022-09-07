@@ -21,15 +21,18 @@ class CustomAuthController extends Controller
      
     $request->validate([
            
-        'uid' => 'required',
-        'pwd' => 'required',
+        'username' => 'required',
+        'password' => 'required',
+        'passwordrepeat' => 'required',
         'email' => 'required',
+        
+     
       ]);
 
     $user = new Users();
-    $user->uid = $request->uid;
+    $user->uid = $request->username;
     $user->email = $request->email;
-    $user->pwd = $request->pwd;
+    $user->pwd = $request->password;
     $resoult = $user->save();
 
     if($resoult){

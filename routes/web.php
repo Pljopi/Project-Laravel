@@ -17,6 +17,8 @@ use App\Http\Controllers\CustomAuthController;
 
 Route::view('/home', 'layouts/base_html');
 
+Route::view('/', 'layouts/base_html');
+
 Route::get('/login', [CustomAuthController::class, 'login']);
 
 Route::get('/signup', [CustomAuthController::class, 'registration']);
