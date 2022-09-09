@@ -17,6 +17,21 @@
 
 
 		<section class="header">
+			<p>
+				{{ dump(LoggedUserInfo) }}</p>
+			<p>
+				{{ dump(session) }}</p>
+			<p>
+				{{ dump(LoggedUser) }}</p>
+
+			<p>
+				{{ dump(session.file) }}
+			</p>
+			<p>
+				{{ dump(request) }}
+			</p>
+
+
 			<nav>
 				<a href="index.php">
 					<img src="{{ asset('images/logo.png') }}">
@@ -39,50 +54,62 @@
 							</a>
 						</li>
 
-						{% if not (session.useruid|default()) %}
+						{% if not (LoggedUserInfo) %}
 
 							<li>
 								<a href="login">
 									LOG IN HERE&nbsp
-									{{ session.useruid }}
+
 								</a>
 							</li>
 
 						{% endif %}
-						{% if session.useruid|default() %}
+						{% if LoggedUserInfo %}
 
 							<li>
 								<a href="">
 									YOU ARE LOGGED IN AS&nbsp
-									{{ session.useruid }}
+									{{ LoggedUserInfo.uid }}
 								</a>
 							</li>
 
 						{% endif %}
 
-						{% if session.useruid|default() %}
+						{% if LoggedUserInfo %}
 
 							<li>
-								<a href="includes/logout.inc.php">
+								<a href="logout">
 									LOGOUT&nbsp
-									{{ session.useruid }}
+
 								</a>
 							</li>
 						{% endif %}
+
 					</ul>
 				</div>
 			</nav</section>
 
-
 			<div class="text-box">
-				<h1>
-					Most accurate crypto prices
-				</h1>
-				<div class="container">
-					<div class="row"></div>
-					<div style="margin-top:20;"> {% block CONTENT %}{% endblock %}
-						</div>
+				{% block DASHBOARD %}
+					<h1>
+						Most accurate crypto prices
+					</h1>
+
+
+					<div class="container">
+						{% block CONTENT %}
+							<div class="row"></div>
+							<div style="margin-top:20;">
+
+								{% if session ('success') %}
+									<div class="alert alert-sucess">{{ session ('success') }}
+										{{ session ('uid') }}</div>
+								{% endif %}
+
+							</div>
+						{% endblock CONTENT %}
 					</div>
+
 					<div class="footer">
 						<footer>
 							<p>
@@ -90,8 +117,11 @@
 							</p>
 						</footer>
 					</div>
-				</div>
-			</html>
-		</body>
-		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
-	</html>
+				{% endblock DASHBOARD %}
+			</div>
+
+
+		</html>
+	</body>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
+</html>

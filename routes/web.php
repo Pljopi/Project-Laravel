@@ -2,6 +2,10 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CustomAuthController;
+use App\Http\Controllers\CustomDashboardController;
+use App\Http\Middleware\AlreadyLoggedIn;
+use App\Http\Middleware\UserData;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -14,22 +18,40 @@ use App\Http\Controllers\CustomAuthController;
 |
 */
 
+Route::controller(CustomAuthController::class)->group(function(){
 
-Route::view('/home', 'layouts/base_html');
+    Route::get('/login', 'login')->middleware('isAlreadyLoggedIn');
 
-Route::view('/', 'layouts/base_html');
+    Route::post('login-user',  'loginUser')->name('login-user');
+    
+    Route::get('/signup','registration');
+    
+    Route::post('/register-user', 'registerUser')->name('register-user');
 
-Route::get('/login', [CustomAuthController::class, 'login']);
+    Route::get('/logout', 'logout');
+    
+});
 
-Route::get('/signup', [CustomAuthController::class, 'registration']);
 
-Route::post('/register-user', [CustomAuthController::class, 'registerUser'])->name('register-user');
+Route::controller(CustomDashboardController::class)->group(function(){
 
-Route::view('/favourites', 'pages/favourites_html');
+    Route::get('/dashboard', 'dashboard')->middleware('isLoggedIn');
+});
+
+
+
+Route::get('/', function () {
+    return view('home');
+});
+
+Route::view('/favourites', 'pages/favourites_html')->middleware('UserData');
 
 Route::view('/list', 'pages/list_html');
 
 Route::view('/show_list', 'pages/show__list_html');
 
+Route::view('/home', 'layouts/base_html');
+
+Route::view('/', 'layouts/base_html');
 
 
