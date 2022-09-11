@@ -5,7 +5,8 @@ use App\Http\Controllers\CustomAuthController;
 use App\Http\Controllers\CustomDashboardController;
 use App\Http\Middleware\AlreadyLoggedIn;
 use App\Http\Middleware\UserData;
-
+use App\Http\Controllers\CustomCryptoApiController;
+use App\Http\Controllers\CustomFavouritesController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,10 +18,13 @@ use App\Http\Middleware\UserData;
 | contains the "web" middleware group. Now register-user something great!
 |
 */
+Route::get('/', function () {
+    return view('home');
+});
 
 Route::controller(CustomAuthController::class)->group(function(){
 
-    Route::get('/login', 'login')->middleware('isAlreadyLoggedIn');
+    Route::get('/login', 'login')->middleware('isAlreadyLoggedIn')->name ('login');
 
     Route::post('login-user',  'loginUser')->name('login-user');
     
@@ -28,30 +32,44 @@ Route::controller(CustomAuthController::class)->group(function(){
     
     Route::post('/register-user', 'registerUser')->name('register-user');
 
-    Route::get('/logout', 'logout');
+    Route::get('/logout', 'logout')->name('logout');
     
 });
 
 
 Route::controller(CustomDashboardController::class)->group(function(){
 
-    Route::get('/dashboard', 'dashboard')->middleware('isLoggedIn');
+    Route::get('/dashboard', 'dashboard')->middleware('isLoggedIn')->name('dashboard');
 });
 
 
 
-Route::get('/', function () {
-    return view('home');
+
+Route::controller(CustomCryptoApiController::class)->group(function(){
+
+    Route::get('show_list', 'getListOfCurrencies')->name('show_list');
+
+  
 });
 
-Route::view('/favourites', 'pages/favourites_html')->middleware('UserData');
+Route::controller(CustomFavouritesController::class)->group(function(){
 
-Route::view('/list', 'pages/list_html');
+Route::get('add_favourite', 'insertFavourite');
 
-Route::view('/show_list', 'pages/show__list_html');
+Route::get('favourites', 'showFavourites')->name('favourites');
+});
 
-Route::view('/home', 'layouts/base_html');
 
-Route::view('/', 'layouts/base_html');
+
+
+// Route::view('/favourites', 'pages/favourites_html')->name('favourites');
+
+Route::view(uri: '/list', view:'pages/list_html')->name('list');
+
+Route::view('/home', 'layouts/base_html')->name('home');
+
+Route::view('/', 'layouts/base_html')->name('/');
+
+
 
 

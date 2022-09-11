@@ -4,7 +4,8 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
-
+use App\Models\Users;
+use Session;
 class UserData
 {
     /**
@@ -17,8 +18,16 @@ class UserData
     public function handle(Request $request, Closure $next)
     {
         if($request->session()->has('LoggedUser')){
-          $user=session()->get('LoggedUser');
-        return $next($request);
+            $user = Users::where('id', '=', Session::get('LoggedUser'))->first();
+            $data = [
+                'LoggedUserInfo' => $user
+            ];
+            return  response()->view('pages/favourites_html', $data);
+        }
+        else{
+            return $next($request);
+        }
+
     }
 }
-}
+

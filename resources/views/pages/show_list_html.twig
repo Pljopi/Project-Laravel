@@ -1,0 +1,34 @@
+{% extends 'layouts/base_html.twig' %}
+
+
+{% block CONTENT %}
+	<div
+		class="ListOfCurrencies">
+		<h1>
+			List of currencies
+		</h1>
+		<p>
+			Click on a currency to add it to your favourite currenices
+		</p>
+
+		<form
+			action="add_favourite"
+			method="get">
+
+
+			{% for currency in ListOfCurrencies %}
+				<input
+					type="submit"
+					name="currency"
+					class="button"
+					value="{{currency}}"/>
+			{% endfor %}
+		</form>
+		{{ csrf_field () }}
+	</div>
+	<script>
+		if (window.history.replaceState) {
+window.history.replaceState(null, null, window.location.href);
+}
+	</script>
+{% endblock %}
