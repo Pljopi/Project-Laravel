@@ -16,7 +16,7 @@ class CustomFavouritesController extends Controller
  }else{
     $user_id = 0;
  }
- $user = $this->loggedUser($request);
+
  
 DB::table('favourites')->insertOrIgnore(
     [
@@ -35,31 +35,12 @@ return redirect('show_list',);
          
         }
         $favourites = DB::table('favourites')->where('user_id', $user_id)->get('tag');
+        $favourites = array_column($favourites->toArray(), 'tag');
 
-    $user = $this->loggedUser($request);
-       
-
-  $favourites = array_column($favourites->toArray(), 'tag');
-
-        return  response()->view('pages/favourites_html', ['printFavourites' => $favourites, 'LoggedUserInfo' => $user]);
+        return  response()->view('pages/favourites_html', ['printFavourites' => $favourites]);
     }
 
 
 
 
-
-    public function loggedUser(Request $request){
-        if ($request->session()->has('LoggedUser'))
-         {
-            $user_id = Session::get('LoggedUser','id');
-         }else{
-           $user_id = 0;
-         }
-       
-        $user = Users::where('id', '=', Session::get('LoggedUser'))->first();
-       return $data = [
-            'LoggedUserInfo' => $user
-        ];
-
-}
 }

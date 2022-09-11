@@ -57,6 +57,8 @@ Route::controller(CustomFavouritesController::class)->group(function(){
 Route::get('add_favourite', 'insertFavourite');
 
 Route::get('favourites', 'showFavourites')->name('favourites');
+
+
 });
 
 
@@ -66,9 +68,9 @@ Route::get('favourites', 'showFavourites')->name('favourites');
 
 Route::view(uri: '/list', view:'pages/list_html')->name('list');
 
-Route::view('/home', 'layouts/base_html')->name('home');
+Route::view('/home', 'pages/list_html')->name('home');
 
-Route::view('/', 'layouts/base_html')->name('/');
+Route::view('/', 'pages/list_html')->name('/');
 
 
 
