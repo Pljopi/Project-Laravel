@@ -54,7 +54,9 @@ Route::controller(CustomCryptoApiController::class)->group(function(){
 
 Route::controller(CustomFavouritesController::class)->group(function(){
 
-Route::get('add_favourite', 'insertFavourite');
+Route::get('add_favourite', 'insertFavourite')->name('add_favourite');
+
+Route::get('remove_favourite', 'removeFromFavourites')->name('remove_favourite');
 
 Route::get('favourites', 'showFavourites')->name('favourites');
 
@@ -64,7 +66,7 @@ Route::get('favourites', 'showFavourites')->name('favourites');
 
 
 
-// Route::view('/favourites', 'pages/favourites_html')->name('favourites');
+
 
 Route::view(uri: '/list', view:'pages/list_html')->name('list');
 

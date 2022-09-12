@@ -1,7 +1,7 @@
 {% extends "layouts/base_html.twig" %}
 
 {% block CONTENT %}
-
+	{{ dump (user) }}
 	<div
 		class="favourites">
 		<h1>
@@ -11,13 +11,14 @@
 			Click on a currency to remove it from your favourites
 		</p>
 		<form
-			method="get">
-			{% for key in printFavourites %}
+			action={{ route ('remove_favourite') }} method="GET">
+
+			{% for favourite in printFavourites %}
 				<input
 					type="submit"
 					name="favourite"
 					class="button"
-					onclick="<script>window.location.reload();</script>" value="{{key}}"/>
+					onclick="<script>window.location.reload();</script>" value="{{favourite}}"/>
 			{% endfor %}
 
 		</h2>

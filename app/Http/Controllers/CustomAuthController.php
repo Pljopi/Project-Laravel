@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Users;
+use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
 
@@ -32,7 +32,7 @@ class CustomAuthController extends Controller
         
       ]);
 
-    $user = new Users();
+   
     $user->uid = $request->username;
     $user->email = $request->email;
     $user->pwd = Hash::make($request->password);
@@ -51,7 +51,7 @@ public function loginUser(Request $request){
         'password' => 'required',
     ]);
 
-    $user = Users::where('uid', $request->username)->first();
+    $user = User::where('uid', $request->username)->first();
     if($user){
         if(Hash::check($request->password, $user->pwd)){
             $request->session()->put('LoggedUser', $user->id);
