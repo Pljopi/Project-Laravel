@@ -12,8 +12,7 @@
 		</p>
 
 		<form
-			action={{ route ('add_favourite') }} method="get">
-
+			action={{ route ('add_favourite') }} method="">
 
 			{% for currency in ListOfCurrencies %}
 				<input
@@ -31,3 +30,5 @@ window.history.replaceState(null, null, window.location.href);
 }
 	</script>
 {% endblock %}
+{#rabim za pol ko bojo stvari.. .boljše?? 
+//{% for currency in app.session.get('ListOfCurrencies') %} #}

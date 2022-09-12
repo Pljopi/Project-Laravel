@@ -1,9 +1,12 @@
 {% extends "layouts/base_html.twig" %}
 
 {% block CONTENT %}
-	<section class="index-login">
-		<div class="wrapper">
-			<div class="index-login-login">
+	<section
+		class="index-login">
+		<div
+			class="wrapper">
+			<div
+				class="index-login-login">
 				<h4>
 					LOGIN
 				</h4>
@@ -12,29 +15,52 @@
 						Have an account already? Sign in here!
 					{% endblock LOGIN %}
 				</p>
-				<form action="{{ route ('login-user') }}" method="post">
+				<form
+					action="{{ route ('login-user') }}" method="post">
 					{% if session ('fail') %}
-						<div class="alert alert-sucess">{{ session ('fail') }}</div>
+						<div
+							class="alert alert-sucess">
+							{{ session ('fail') }}
+						</div>
 					{% endif %}
 					{{ csrf_field () }}
-					<div class="form-group"></div>
-					<input type="text" class="form-control" name="username" placeholder="Username">
+					<div
+						class="form-group"></div>
+					<input
+						type="text"
+						class="form-control"
+						name="username"
+						placeholder="Username">
 					{% if errors.first('username') %}
-						<div class="alert alert-danger">
-							<ul>{{ errors.first('username')}}</ul>
+						<div
+							class="alert alert-danger">
+							<ul>
+								{{ errors.first('username')}}
+							</ul>
 						</div>
 					{% endif %}
 				</div>
-				<div class="form-group"></div>
-				<input type="password" class="form-control" name="password" placeholder="Password">
+				<div
+					class="form-group"></div>
+				<input
+					type="password"
+					class="form-control"
+					name="password"
+					placeholder="Password">
 
 				{% if errors.first('password')%}
-					<div class="alert alert-danger">
-						<ul>{{ errors.first('password') }}</ul>
+					<div
+						class="alert alert-danger">
+						<ul>
+							{{ errors.first('password') }}
+						</ul>
 					</div>
 				{% endif %}
 			</div>
-			<button class="btn btn-block btn-primary" type=" submit" name=" submit">
+			<button
+				class="btn btn-block btn-primary"
+				type=" submit"
+				name=" submit">
 				LOGIN
 			</button>
 		</form>
@@ -44,7 +70,8 @@
 		Don't have an account?
 	</h5>
 	<li>
-		<a href="signup">
+		<a
+			href={{ route('signup')}}>
 			Sign up here
 			<a></li>
 		</div>

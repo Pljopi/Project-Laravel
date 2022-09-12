@@ -2,12 +2,14 @@
 
 {% block CONTENT %}
 
-	<div class="content">
-		<h1>Spot price of
-			{{ criptoCurrencyTAG }}
+	<div
+		class="content">
+		<h1>
+			Spot price of
+			{{ criptoCurrency }}
 			is
-			{{ pairValue }}
-			{{ currencyTAG }}
+			{{ price }}
+			{{ currency }}
 		</h1>
 		<h2>
 			{{ post.published_at|date("d/m/Y") }}
@@ -15,5 +17,8 @@
 		</h2>
 	</div>
 
+	{{ dump (priice) }}
+	{{ dump (currency) }}
+	{{ dump (criptoCurrency) }}
 
 {% endblock %}

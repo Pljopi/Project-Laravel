@@ -4,7 +4,6 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CustomAuthController;
 use App\Http\Controllers\CustomDashboardController;
 use App\Http\Middleware\AlreadyLoggedIn;
-use App\Http\Middleware\UserData;
 use App\Http\Middleware\LoggedUserInfo;
 use App\Http\Controllers\CustomCryptoApiController;
 use App\Http\Controllers\CustomFavouritesController;
@@ -30,7 +29,7 @@ Route::controller(CustomAuthController::class)->group(function(){
 
     Route::post('login-user',  'loginUser')->name('login-user');
     
-    Route::get('/signup','registration');
+    Route::get('/signup','registration')->name('signup');
     
     Route::post('/register-user', 'registerUser')->name('register-user');
 
@@ -48,7 +47,10 @@ Route::controller(CustomDashboardController::class)->group(function(){
 Route::controller(CustomCryptoApiController::class)->group(function(){
 
     Route::get('show_list', 'getListOfCurrencies')->middleware('LoggedUserInfo')->name('show_list');
-  
+
+    Route::get('home', 'GetListOfCurrenciesHome')->middleware('LoggedUserInfo')->name('home');
+    
+    Route::get('/price', 'GetPrice')->name('price');
 });
 
 Route::controller(CustomFavouritesController::class)->group(function(){
@@ -69,9 +71,9 @@ Route::get('favourites', 'showFavourites')->middleware('LoggedUserInfo')->name('
 
 
 
-Route::view('/home', 'pages/list_html')->middleware('LoggedUserInfo')->name('home');
 
-Route::view('/', 'pages/list_html')->middleware('LoggedUserInfo')->name('/');
+
+Route::view('/', 'layouts/base_html')->middleware('LoggedUserInfo')->name('/');
 
 
 
