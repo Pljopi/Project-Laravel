@@ -6,41 +6,42 @@
 		Welcome to your dashboard
 	</h1>
 	<hr>
-	<table class="table">
+	<table
+		class="table">
 		<thead>
 			<tr>
-				<th>Name</th>
-				<th>email</th>
-				<th>Action</th>
+				<th>
+					Name
+				</th>
+				<th>
+					email
+				</th>
+				<th>
+					Action
+				</th>
 			</tr>
 		</thead>
 		<tbody>
 			<tr>
-				<td>{{ LoggedUserInfo.uid }}</td>
-				<td>{{ LoggedUserInfo.email }}</td>
 				<td>
-					<a href="logout">Logout</a>
+					{{ LoggedUserInfo.uid }}
+				</td>
+				<td>
+					{{ LoggedUserInfo.email }}
+				</td>
+				<td>
+					<a
+						href={{ route ('logout') }}>
+						Logout
+					</a>
 				</td>
 			</tr>
 		</tbody>
 		{% if session ('success') %}
-			<div class="alert alert-sucess">{{ session ('success') }}</div>
+			<div
+				class="alert alert-sucess">
+				{{ session ('success') }}
+			</div>
 		{% endif %}
-		<h2>
-			your favourite currencies are:
-		</h2>
-		<p>
-			Click on a currency to remove it from your favourites</p>
-		<form method="post">
-			<h2>
-				{% for key in printFavourites %}
-					<input type="submit" name="favourite" class="button" onclick="<script>window.location.reload();</script>" value="{{key}}"/>
-				{% endfor %}
-			</h2>
-		</div>
-		<script>
-			if (window.history.replaceState) {
-window.history.replacestate(null, null, window.location.href);
-}
-		</script>
+
 	{% endblock %}

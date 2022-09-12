@@ -5,8 +5,10 @@ use App\Http\Controllers\CustomAuthController;
 use App\Http\Controllers\CustomDashboardController;
 use App\Http\Middleware\AlreadyLoggedIn;
 use App\Http\Middleware\UserData;
+use App\Http\Middleware\LoggedUserInfo;
 use App\Http\Controllers\CustomCryptoApiController;
 use App\Http\Controllers\CustomFavouritesController;
+use Illuminate\Http\Request;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,7 +26,7 @@ Route::get('/', function () {
 
 Route::controller(CustomAuthController::class)->group(function(){
 
-    Route::get('/login', 'login')->middleware('isAlreadyLoggedIn')->name ('login');
+    Route::get('/login', 'login')->middleware('LoggedUserInfo')->middleware('isAlreadyLoggedIn')->name ('login');
 
     Route::post('login-user',  'loginUser')->name('login-user');
     
@@ -39,16 +41,13 @@ Route::controller(CustomAuthController::class)->group(function(){
 
 Route::controller(CustomDashboardController::class)->group(function(){
 
-    Route::get('/dashboard', 'dashboard')->middleware('isLoggedIn')->name('dashboard');
+    Route::get('/dashboard', 'dashboard')->middleware('LoggedUserInfo')->middleware('isLoggedIn')->name('dashboard');
 });
-
-
 
 
 Route::controller(CustomCryptoApiController::class)->group(function(){
 
-    Route::get('show_list', 'getListOfCurrencies')->name('show_list');
-
+    Route::get('show_list', 'getListOfCurrencies')->middleware('LoggedUserInfo')->name('show_list');
   
 });
 
@@ -58,7 +57,7 @@ Route::get('add_favourite', 'insertFavourite')->name('add_favourite');
 
 Route::get('remove_favourite', 'removeFromFavourites')->name('remove_favourite');
 
-Route::get('favourites', 'showFavourites')->name('favourites');
+Route::get('favourites', 'showFavourites')->middleware('LoggedUserInfo')->name('favourites');
 
 
 });
@@ -68,11 +67,11 @@ Route::get('favourites', 'showFavourites')->name('favourites');
 
 
 
-Route::view(uri: '/list', view:'pages/list_html')->name('list');
 
-Route::view('/home', 'pages/list_html')->name('home');
 
-Route::view('/', 'pages/list_html')->name('/');
+Route::view('/home', 'pages/list_html')->middleware('LoggedUserInfo')->name('home');
+
+Route::view('/', 'pages/list_html')->middleware('LoggedUserInfo')->name('/');
 
 
 

@@ -184,6 +184,7 @@ return [
 
         /*
          * Package Service Providers...
+         * 
          */
 
         /*
@@ -194,6 +195,11 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+
+        /*
+         * Custom Service Providers...
+         */
+        TwigBridge\ServiceProvider::class,
 
     ],
 
@@ -210,6 +216,7 @@ return [
 
     'aliases' => Facade::defaultAliases()->merge([
         // 'ExampleClass' => App\Example\ExampleClass::class,
+        'Twig' => TwigBridge\Facade\Twig::class,
     ])->toArray(),
 
 ];

@@ -14,6 +14,7 @@ class CustomDashboardController extends Controller
 
     public function dashboard(){
         if(Session::has('LoggedUser')){
+            
             $user = User::where('id', '=', Session::get('LoggedUser'))->first();
             $data = [
                 'LoggedUserInfo' => $user

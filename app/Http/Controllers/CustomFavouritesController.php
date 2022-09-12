@@ -50,8 +50,7 @@ public function removeFromFavourites(Request $request){
          }
   $user = $request->favourite;
     Favourite::where('user_id', $user_id)->where('tag', $request->favourite)->delete();
-  
-    
+      
     return  redirect('favourites');
 }
 }

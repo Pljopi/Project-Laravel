@@ -16,13 +16,15 @@ class CustomCryptoApiController extends Controller
         return $data;
     }
     //
-    public function getListOfCurrencies()
-    {
+    public function getListOfCurrencies(Request $request){
+       
+    
         if (!$this->listOfCurrencies) {
             $this->listOfCurrencies = $this->apiCall("https://api.coingecko.com/api/v3/simple/supported_vs_currencies");
         }
         $list = $this->listOfCurrencies;
-        return view('pages/show_list_html',  [ 'ListOfCurrencies' => $list]);
+        $user= $request->user();
+        return view('pages/show_list_html',  [ 'ListOfCurrencies' => $list , 'LoggedUserInfo' => $user]);
     }
 
     

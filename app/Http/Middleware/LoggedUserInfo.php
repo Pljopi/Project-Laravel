@@ -4,9 +4,9 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
-use App\Models\Users;
-use Session;
-class UserData
+use App\Models\User;
+
+class LoggedUserInfo
 {
     /**
      * Handle an incoming request.
@@ -18,16 +18,14 @@ class UserData
     public function handle(Request $request, Closure $next)
     {
         if($request->session()->has('LoggedUser')){
-            $user = Users::where('id', '=', Session::get('LoggedUser'))->first();
+            $user = User::where('id', '=', $request->session()->get('LoggedUser'))->first();
+      
             $data = [
                 'LoggedUserInfo' => $user
             ];
-            return  response()->view('pages/favourites_html', $data);
+            $request->merge($data);
         }
-        else{
-            return $next($request);
-        }
-
+      
+        return $next($request);
     }
 }
-
