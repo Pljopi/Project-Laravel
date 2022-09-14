@@ -7,8 +7,13 @@ use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvi
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\View;
+use Illuminate\Session\Middleware\StartSession;
+use App\Http\Middleware\LoggedUserInfo;
+use IIlluminate\View\Middleware\ShareErrorsFromSession;
 
 class RouteServiceProvider extends ServiceProvider
+
 {
     /**
      * The path to the "home" route for your application.
@@ -25,7 +30,7 @@ class RouteServiceProvider extends ServiceProvider
      * @return void
      */
     public function boot()
-    {
+    {                
         $this->configureRateLimiting();
 
         $this->routes(function () {

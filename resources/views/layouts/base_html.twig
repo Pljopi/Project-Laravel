@@ -61,7 +61,7 @@
 							</a>
 						</li>
 
-						{% if not (app.request.LoggedUserInfo.uid) %}
+						{% if not (LoggedUserInfo.uid) %}
 
 							<li>
 								<a
@@ -72,19 +72,19 @@
 							</li>
 
 						{% endif %}
-						{% if app.request.LoggedUserInfo.uid %}
+						{% if LoggedUserInfo.uid %}
 
 							<li>
 								<a
 									href={{route ('dashboard') }}>
 									YOU ARE LOGGED IN AS&nbsp
-									{{ app.request.LoggedUserInfo.uid }}
+									{{ LoggedUserInfo.uid }}
 								</a>
 							</li>
 
 						{% endif %}
 
-						{% if app.request.LoggedUserInfo.uid %}
+						{% if LoggedUserInfo.uid %}
 
 							<li>
 								<a

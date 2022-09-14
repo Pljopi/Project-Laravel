@@ -11,6 +11,8 @@ use Illuminate\Support\Facades\Session;
 
 class CustomAuthController extends Controller
 {
+    protected $maxLoginAttempts = 10; // Amount of bad attempts user can make
+    protected $lockoutTime = 300; // Time for which user is going to be blocked in seconds
    public function login(){
          return view('pages/auth/login_html');
 
@@ -23,6 +25,7 @@ class CustomAuthController extends Controller
 
    public function registerUser(Request $request){
      
+
     $request->validate([
            
         'username' => 'required | unique:users,uid',
@@ -32,7 +35,7 @@ class CustomAuthController extends Controller
         
       ]);
 
-   
+    $user = new User;
     $user->uid = $request->username;
     $user->email = $request->email;
     $user->pwd = Hash::make($request->password);
