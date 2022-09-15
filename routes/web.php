@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CustomAuthController;
 use App\Http\Controllers\CustomDashboardController;
 use App\Http\Middleware\AlreadyLoggedIn;
-
+use App\Http\Controllers\CustomIpController;
 use App\Http\Controllers\CustomCryptoApiController;
 use App\Http\Controllers\CustomFavouritesController;
 use Illuminate\Http\Request;
@@ -19,23 +19,32 @@ use Illuminate\Http\Request;
 | contains the "web" middleware group. Now register-user something great!
 |
 */
+
 Route::get('/', function () {
     return view('home');
 });
+Route::view('/', 'layouts/base_html')->name('/');
 
-Route::controller(CustomAuthController::class)->group(function(){
+Route::middleware(['throttle:login'])->group(function() {
 
-    Route::get('/login', 'login')->middleware('isAlreadyLoggedIn')->name ('login');
+    Route::controller(CustomAuthController::class)->group(function(){
 
-    Route::post('login-user',  'loginUser')->name('login-user');
+        Route::get('/login', 'login')->middleware('isAlreadyLoggedIn')->name ('login');
     
-    Route::get('/signup','registration')->name('signup');
-    
-    Route::post('/register-user', 'registerUser')->name('register-user');
+        Route::post('loginuser',  'loginUser')->name('loginuser');
 
-    Route::get('/logout', 'logout')->name('logout');
+
+        
+        Route::get('/signup','registration')->name('signup');
+        
+        Route::post('/register-user', 'registerUser')->name('register-user');
     
+        Route::get('/logout', 'logout')->name('logout');
+        
+    });
 });
+
+
 
 
 Route::controller(CustomDashboardController::class)->group(function(){
@@ -53,6 +62,8 @@ Route::controller(CustomCryptoApiController::class)->group(function(){
     Route::get('/price', 'GetPrice')->name('price');
 });
 
+
+
 Route::controller(CustomFavouritesController::class)->group(function(){
 
 Route::get('add_favourite', 'insertFavourite')->name('add_favourite');
@@ -61,6 +72,11 @@ Route::get('remove_favourite', 'removeFromFavourites')->name('remove_favourite')
 
 Route::get('favourites', 'showFavourites')->name('favourites');
 
+});
+
+Route::controller(CustomIpController::class)->group(function(){
+
+    Route::post('login-user',  'CheckLoginAttempt')->name('login-user');
 
 });
 
@@ -72,8 +88,6 @@ Route::get('favourites', 'showFavourites')->name('favourites');
 
 
 
-
-Route::view('/', 'layouts/base_html')->name('/');
 
 
 
