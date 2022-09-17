@@ -54,7 +54,7 @@ Route::controller(CustomCryptoApiController::class)->group(function(){
 
     Route::get('show_list', 'getListOfCurrencies')->name('show_list');
 
-    Route::get('home', 'GetListOfCurrenciesHome')->name('home');
+    Route::get('home', 'getListOfCurrenciesHome')->name('home');
     
     Route::get('/price', 'getPrice')->name('price');
 });

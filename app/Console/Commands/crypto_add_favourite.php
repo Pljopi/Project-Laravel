@@ -28,9 +28,10 @@ class crypto_add_favourite extends Command
     public function handle()
     {   $crypto = new Crypto();
         $currencyTag = $this->ask('Enter the currency TAGs you want to add to your favourites, separated by a comma');
-        $favouriteTag = $crypto->checkFavouriteCurrencyTag($currencyTag);
-        $parsedFavouriteTag = $crypto->parseFavourite($favouriteTag);
+        $favouriteTag = $crypto->checkCurrencyTag($currencyTag);
+        $parsedFavouriteTag = $crypto->parseTag($favouriteTag);
         $favouriteTags = implode("\n", $parsedFavouriteTag);
+        $crypto->addFav($parsedFavouriteTag);
         $this->info('Your favourite currencies are: ' . $favouriteTags);
         return 0;
     }

@@ -24,5 +24,5 @@ class CustomDashboardController extends Controller
             return redirect('login')->with('fail', 'You must be logged in');
         }
     }
-    //
+        //
 }

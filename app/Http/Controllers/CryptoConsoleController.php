@@ -35,7 +35,7 @@ class CryptoConsoleController extends Controller
     }
 }
 
-public function checkFavouriteCurrencyTag($currencyTag){
+public function checkCurrencyTag($currencyTag){
   if (empty($currencyTag) && $currencyTag !== '0') {
     echo "For this to work you have to enter a currency code, try again.\n";
     exit;
@@ -43,7 +43,8 @@ public function checkFavouriteCurrencyTag($currencyTag){
 
     return explode(",", str_replace(" ", "", ($currencyTag)));
 }}
-public function parseFavourite($favouriteCurrency)
+
+public function parseTag($favouriteCurrency)
 {  $api = new Api();
    $list = $api->getList();
 
@@ -63,14 +64,28 @@ public function parseFavourite($favouriteCurrency)
         }
     }
     if (!empty($favs)) {
+    
                return array_unique($favs);
+
     }
     if (empty($favs)) {
         echo " You have not entered any valid currency codes, exiting...\n";
         exit;
     }
+  }
 
+public function addFav($favs){
+  $fav = new Fav;
+  $fav->insertTag(0, $favs);
 }
+
+public function removeFav($favs){
+  $fav = new Fav;
+  $fav->removeTag(0, $favs);
+}
+
+
+
 
 
 

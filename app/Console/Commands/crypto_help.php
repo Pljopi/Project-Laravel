@@ -27,7 +27,7 @@ class crypto_help extends Command
      */
     public function handle()
     {
-        $this->info('After php artiisan crypto: type >list< for a list of all supported currencies or >price< for a price of a currency pair. You can also use >favourite< to see the favourite currencies of selected user');
+        $this->info("list of all commands: \n crypto:list \n crypto:price \n crypto:favourite \n crypto:user \n crypto:user_id \n crypto:add_favourite \n crypto:remove_favourite \n crypto:help");
     
         return 0;
     }

@@ -11,27 +11,42 @@ use App\Models\Favourite;
 
 class CustomFavouritesController extends Controller
 {
- public function insertFavourite(Request $request){
-       if ($request->session()->has('LoggedUser')) {
-     $user_id = Session::get('LoggedUser','id');
- }else{
-    $user_id = 0;
- }
+    public function insertFavourite(Request $request){
+        if ($request->session()->has('LoggedUser')) {
+      $user_id = Session::get('LoggedUser','id');
+    }else{
+     $user_id = 0;
+    }
+ 
+    Favourite::insertOrIgnore([
+     'user_id' => $user_id, 
+     'tag' => $request->currency
+    ]);
+ 
+ 
+    return redirect('show_list',);
+ 
+    }
 
- Favourite::insertOrIgnore([
-    'user_id' => $user_id, 
-    'tag' => $request->currency
- ]);
 
 
-return redirect('show_list',);
 
-}
-public function getFavourites($user_id){            
+    public function insertTag($user_id, $tag){
+        foreach($tag as $tag)   {
+            Favourite::insertOrIgnore([
+                'user_id' => $user_id, 
+                'tag' => $tag
+             ]);
+            }
+           
+    
+    }
+    
+    public function getFavourites($user_id){            
     $favourites = Favourite::where('user_id', $user_id)->get('tag');
     $favourites = array_column($favourites->toArray(), 'tag');
     return $favourites;
-}
+    }
   
   
     public function showFavourites(Request $request){
@@ -46,45 +61,23 @@ public function getFavourites($user_id){
     }
 
 
-public function removeFromFavourites(Request $request){
-    if ($request->session()->has('LoggedUser')) {
-        $user_id = Session::get('LoggedUser','id');
-                }else{
-       $user_id = 0;
-         }
-  $user = $request->favourite;
-    Favourite::where('user_id', $user_id)->where('tag', $request->favourite)->delete();
-      
-    return  redirect('favourites');
-}
-
-public function parseFavourite($favouriteCurrency, $list)
-{
-    foreach ($favouriteCurrency as $value) {
-        if (array_key_exists($value, $list)) {
-            $favs[] = $value;
-
-        } else {
-            $fail[] = $value;
-        }
+    public function removeFromFavourites(Request $request){
+        if ($request->session()->has('LoggedUser')) {
+            $user_id = Session::get('LoggedUser','id');
+                    }else{
+           $user_id = 0;
+             }
+                  $tag = $request->tag;
+      Favourite::where('user_id', $user_id)->where('tag', $request->favourite)->delete();
+          
+        return  redirect('favourites');
     }
-    if (!empty($fail)) {
-        echo "The following currencie codes do not exist:\n";
-        foreach ($fail as $value) {
-            echo $value . "\n";
-        }
-    }
-    if (!empty($favs)) {
-        foreach ($favs as $value) {
-            $favouriteTags[] = $list[$value];
-        }
-        return $favouriteTags;
-    }
-    if (empty($favs)) {
-        echo " You have not entered any valid currency codes, exiting...\n";
-        exit;
-    }
+    public function removeTag($user_id, $tag){
+       
+    foreach($tag as $tag){
+        Favourite::where('user_id', $user_id)->where('tag', $tag)->delete();
+    }   
+       
 
 }
 }
-

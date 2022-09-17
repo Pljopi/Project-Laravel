@@ -26,7 +26,7 @@ class CustomCryptoApiController extends Controller
         return $list;
     }
     //Pass list of currencies to show list view---kaj bi moglo to vrniti v route? Verjetno -.-''
-    public function GetListOfCurrencies(){
+    public function getListOfCurrencies(){
        
     
       $list = $this->getList();
