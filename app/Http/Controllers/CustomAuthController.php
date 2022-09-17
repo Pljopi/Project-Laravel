@@ -48,7 +48,7 @@ class CustomAuthController extends Controller
     }
 }
 
-public function loginUser(Request $request){
+    public function loginUser(Request $request){
     
     $request->validate([
         'username' => 'required| exists:users,uid',
@@ -75,13 +75,15 @@ public function loginUser(Request $request){
 
 
 
-public function logout(){
+    public function logout(){
     if(Session::has('LoggedUser')){
         Session::pull('LoggedUser');
         return redirect('login')->with('success', 'You have been logged out');
     }
 }
 
-
-
+    public function getAllUsers(){
+        $users = User::all('id', 'uid', 'email');
+        return $users;
+    }
 }

@@ -4,7 +4,6 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CustomAuthController;
 use App\Http\Controllers\CustomDashboardController;
 use App\Http\Middleware\AlreadyLoggedIn;
-use App\Http\Controllers\CustomIpController;
 use App\Http\Controllers\CustomCryptoApiController;
 use App\Http\Controllers\CustomFavouritesController;
 use Illuminate\Http\Request;
@@ -32,8 +31,6 @@ Route::middleware(['throttle:login'])->group(function() {
         Route::get('/login', 'login')->middleware('isAlreadyLoggedIn')->name ('login');
     
         Route::post('loginuser',  'loginUser')->name('loginuser');
-
-
         
         Route::get('/signup','registration')->name('signup');
         
@@ -59,7 +56,7 @@ Route::controller(CustomCryptoApiController::class)->group(function(){
 
     Route::get('home', 'GetListOfCurrenciesHome')->name('home');
     
-    Route::get('/price', 'GetPrice')->name('price');
+    Route::get('/price', 'getPrice')->name('price');
 });
 
 
@@ -74,11 +71,8 @@ Route::get('favourites', 'showFavourites')->name('favourites');
 
 });
 
-Route::controller(CustomIpController::class)->group(function(){
 
-    Route::post('login-user',  'CheckLoginAttempt')->name('login-user');
 
-});
 
 
 

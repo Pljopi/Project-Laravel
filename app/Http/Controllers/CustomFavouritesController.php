@@ -27,16 +27,20 @@ class CustomFavouritesController extends Controller
 return redirect('show_list',);
 
 }
+public function getFavourites($user_id){            
+    $favourites = Favourite::where('user_id', $user_id)->get('tag');
+    $favourites = array_column($favourites->toArray(), 'tag');
+    return $favourites;
+}
+  
+  
     public function showFavourites(Request $request){
         if ($request->session()->has('LoggedUser')) {
             $user_id = Session::get('LoggedUser','id');
                     }else{
            $user_id = 0;
-         
-        }
-        $favourites = Favourite::where('user_id', $user_id)->get('tag');
-      
-        $favourites = array_column($favourites->toArray(), 'tag');
+                 }
+     $favourites = $this->getFavourites($user_id); 
 
         return  response()->view('pages/favourites_html', ['printFavourites' => $favourites]);
     }
@@ -52,6 +56,35 @@ public function removeFromFavourites(Request $request){
     Favourite::where('user_id', $user_id)->where('tag', $request->favourite)->delete();
       
     return  redirect('favourites');
+}
+
+public function parseFavourite($favouriteCurrency, $list)
+{
+    foreach ($favouriteCurrency as $value) {
+        if (array_key_exists($value, $list)) {
+            $favs[] = $value;
+
+        } else {
+            $fail[] = $value;
+        }
+    }
+    if (!empty($fail)) {
+        echo "The following currencie codes do not exist:\n";
+        foreach ($fail as $value) {
+            echo $value . "\n";
+        }
+    }
+    if (!empty($favs)) {
+        foreach ($favs as $value) {
+            $favouriteTags[] = $list[$value];
+        }
+        return $favouriteTags;
+    }
+    if (empty($favs)) {
+        echo " You have not entered any valid currency codes, exiting...\n";
+        exit;
+    }
+
 }
 }
 
