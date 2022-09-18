@@ -12,17 +12,18 @@ class CustomDashboardController extends Controller
 {
 
 
-    public function dashboard(){
-        if(Session::has('LoggedUser')){
-            
+    public function dashboard()
+    {
+        if (Session::has('LoggedUser')) {
+
             $user = User::where('id', '=', Session::get('LoggedUser'))->first();
             $data = [
                 'LoggedUserInfo' => $user
             ];
             return view('pages/dashboard_html', $data);
-        }else{
+        } else {
             return redirect('login')->with('fail', 'You must be logged in');
         }
     }
-        //
+    //
 }

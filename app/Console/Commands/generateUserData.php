@@ -1,5 +1,7 @@
 <?php
+
 namespace App\Console\Commands;
+
 use Illuminate\Console\Command;
 use App\Models\User;
 
@@ -34,8 +36,8 @@ class generateUserData extends Command
     public function handle()
     {
         $usersData = $this->argument('count');
-        for ($i = 0; $i < $usersData; $i++) { 
+        for ($i = 0; $i < $usersData; $i++) {
             User::factory()->create();
-        }          
+        }
     }
 }

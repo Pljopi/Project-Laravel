@@ -27,18 +27,18 @@ class crypto_user_id extends Command
      * @return int
      */
     public function handle()
-    {    $crypto = new Crypto();
+    {
+        $crypto = new Crypto();
         $allUsers = $crypto->getAllUsers();
-        if($this->argument('user_id') <= 0 || $this->argument('user_id') > count($allUsers)){
-            $this->info('User id must be greater than 0 and less than '.count($allUsers));
-        }else{
-        $user_id = $this->argument('user_id');
-        $thisUser = $allUsers[$user_id-1];
-        $this->info('id:' . $thisUser->id,);
-        $this->info('username:' . $thisUser->uid,);
-        $this->info('email:' . $thisUser->email,);
-        $this->info('-----------------');
-   
-       }
+        if ($this->argument('user_id') <= 0 || $this->argument('user_id') > count($allUsers)) {
+            $this->info('User id must be greater than 0 and less than ' . count($allUsers));
+        } else {
+            $user_id = $this->argument('user_id');
+            $thisUser = $allUsers[$user_id - 1];
+            $this->info('id:' . $thisUser->id,);
+            $this->info('username:' . $thisUser->uid,);
+            $this->info('email:' . $thisUser->email,);
+            $this->info('-----------------');
+        }
     }
 }

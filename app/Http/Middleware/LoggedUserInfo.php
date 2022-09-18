@@ -17,15 +17,15 @@ class LoggedUserInfo
      */
     public function handle(Request $request, Closure $next)
     {
-        if($request->session()->has('LoggedUser')){
+        if ($request->session()->has('LoggedUser')) {
             $user = User::where('id', '=', $request->session()->get('LoggedUser'))->first();
-      
+
             $data = [
                 'LoggedUserInfo' => $user
             ];
             $request->merge($data);
         }
-      
+
         return $next($request);
     }
 }

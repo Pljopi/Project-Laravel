@@ -16,7 +16,7 @@ class AuthCheck
      */
     public function handle(Request $request, Closure $next)
     {
-        if(!$request->session()->has('LoggedUser')){
+        if (!$request->session()->has('LoggedUser')) {
             return redirect('login')->with('fail', 'You must be logged in');
         }
         return $next($request);

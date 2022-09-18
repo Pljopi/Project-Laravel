@@ -28,19 +28,14 @@ class crypto_user extends Command
      */
     public function handle()
     {
-    $crypto = new Crypto();
-$allUsers = $crypto->getAllUsers();
+        $crypto = new Crypto();
+        $allUsers = $crypto->getAllUsers();
 
-foreach ($allUsers as $user) {;
-   $this->info($user->id,);
-   $this->info($user->uid,);
-   $this->info($user->email,);
-   $this->info('-----------------');
-}
-
-        
-    
-    
+        foreach ($allUsers as $user) {;
+            $this->info($user->id,);
+            $this->info($user->uid,);
+            $this->info($user->email,);
+            $this->info('-----------------');
+        }
     }
-}   
-
+}

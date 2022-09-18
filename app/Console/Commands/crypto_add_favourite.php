@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Console\Commands;
+
 use App\Http\Controllers\CryptoConsoleController as Crypto;
 use Illuminate\Console\Command;
 
@@ -26,7 +27,8 @@ class crypto_add_favourite extends Command
      * @return int
      */
     public function handle()
-    {   $crypto = new Crypto();
+    {
+        $crypto = new Crypto();
         $currencyTag = $this->ask('Enter the currency TAGs you want to add to your favourites, separated by a comma');
         $favouriteTag = $crypto->checkCurrencyTag($currencyTag);
         $parsedFavouriteTag = $crypto->parseTag($favouriteTag);

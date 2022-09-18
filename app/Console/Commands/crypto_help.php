@@ -28,7 +28,7 @@ class crypto_help extends Command
     public function handle()
     {
         $this->info("list of all commands: \n crypto:list \n crypto:price \n crypto:favourite \n crypto:user \n crypto:user_id \n crypto:add_favourite \n crypto:remove_favourite \n crypto:help");
-    
+
         return 0;
     }
 }

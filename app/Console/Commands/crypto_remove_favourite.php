@@ -36,6 +36,5 @@ class crypto_remove_favourite extends Command
         $removeTags = implode("\n", $parsedRemoveTag);
         $crypto->removeFav($parsedRemoveTag);
         $this->info('The following currencies have been removed from Favourites: ' . $removeTags);
-       
     }
 }

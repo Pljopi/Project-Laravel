@@ -31,13 +31,13 @@ class crypto_list extends Command
         $this->info('List of all supported currencie TAGs');
         $crypto = new Crypto;
         $list = $crypto->GetList();
-        
-        foreach ($list as $key ) {
+
+        foreach ($list as $key) {
             $this->info('*' . ' ' . $key);
         }
-     
 
-      
+
+
         return 0;
     }
 }
